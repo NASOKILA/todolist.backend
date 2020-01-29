@@ -11,14 +11,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Options;
+using TodoList.Backend.Utils;
+using TodoList.Backend.Interfaces;
+using NLog;
+using System.IO;
 
 namespace TodoList.Backend
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration)
         {
-            Configuration = configuration;
+            var environment = Environment.GetEnvironmentVariable("Env") ?? "local";
+
+            Console.WriteLine($"Environment: {environment}");
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: false)
+                .AddUserSecrets<Startup>()
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+
         }
 
         public IConfiguration Configuration { get; }
@@ -26,12 +41,15 @@ namespace TodoList.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var secretsTet = Configuration["ServiceBus:ConnectionString"];
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSingleton<ILoggerService, LoggerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
