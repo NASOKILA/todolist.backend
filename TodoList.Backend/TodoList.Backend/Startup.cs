@@ -11,10 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Options;
-using TodoList.Backend.Utils;
-using TodoList.Backend.Interfaces;
 using NLog;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using TodoList.Backend.Data;
+using TodoList.Backend.Utils;
+using TodoList.Backend.Interfaces;
 
 namespace TodoList.Backend
 {
@@ -41,8 +43,22 @@ namespace TodoList.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var secretsTet = Configuration["ServiceBus:ConnectionString"];
+            string dbConnectionString = Configuration["Database:ConnectionString"];
 
+            //    DbContextOptionsBuilder<TodoListDbContext> opt = new DbContextOptionsBuilder<TodoListDbContext>();
+    //            opt.UseSqlServer(dbConnectionString);
+
+
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
+            services.AddDbContext<TodoListDbContext>(options => options.UseSqlServer(dbConnectionString), ServiceLifetime.Transient);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });

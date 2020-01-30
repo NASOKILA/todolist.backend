@@ -21,5 +21,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoList.Backend.Data\TodoList.Backend.Data.csproj" />
+    <ProjectReference Include="..\TodoList.Backend.Models\TodoList.Backend.Models.csproj" />
+  </ItemGroup>
 
 </Project>
