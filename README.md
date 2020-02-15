@@ -1,8 +1,7 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+This is an API used to serve a React frontend application. It performs CRUD operations on multiple entities and more. It's deployed in an Azure App Service, it's connected to a SQL server database also deployed in Azure. The SQL database has only the Ip of this application which means that only this app can access the database.
 
 # Getting Started
-
 1. Clone repo : https://AtanasKambitov@dev.azure.com/AtanasKambitov/Todolist/_git/Todolist-Api
 2. Open solution project with Visual Studio 2017 or higher.
 3. Open "Package Manager Console" and go to the "TodoList.Database" project.
@@ -19,7 +18,6 @@ TODO: Give a short introduction of your project. Let this section explain the ob
 5. Click on "Run all" to start all unit tests. There are (75) unit tests in total.
 
 # Libraries and methodologies
-
 Swagger
 User Secrets
 EF Core
@@ -35,8 +33,6 @@ Dependency Injection
 REST architecture
 JWT Authentication
 Logging with NLog
-
-
 Interfaces
 Abstract classes
-...
+and more...
