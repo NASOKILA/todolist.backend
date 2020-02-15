@@ -54,32 +54,20 @@ namespace TodoList.Backend.UnitTests.Services
             _db.SaveChanges();
         }
 
-        //[Fact]
-        //public void Get_Auth_Data_Returns_Ok()
-        //{
-        //    //Arrange
-        //    string uniqueToken = _user.UniqueToken;
-
-        //    //Act
-        //    var authData = _authService.GetAuthData(uniqueToken);
-            
-        //    //Assert
-        //    Assert.IsType<AuthData>(authData);
-        //    Assert.IsType<string>(authData.Token);
-        //    Assert.IsType<long>(authData.TokenExpirationTime);
-        //    Assert.IsType<string>(authData.UniqueToken);
-        //}
-
         [Fact]
-        public void Get_Auth_Data_Throws_File_Not_Found_Exception()
+        public void Get_Auth_Data_Returns_Ok()
         {
             //Arrange
             string uniqueToken = _user.UniqueToken;
-            
+
             //Act
+            var authData = _authService.GetAuthData(uniqueToken);
 
             //Assert
-            Assert.Throws<System.IO.FileNotFoundException>(() => _authService.GetAuthData(uniqueToken));
+            Assert.IsType<AuthData>(authData);
+            Assert.IsType<string>(authData.Token);
+            Assert.IsType<long>(authData.TokenExpirationTime);
+            Assert.IsType<string>(authData.UniqueToken);
         }
         
         [Fact]
