@@ -1,15 +1,10 @@
 # ASP.NET Core (.NET Framework)
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-  master
+- master
 
 pool:
   vmImage: 'windows-latest'
@@ -37,8 +32,3 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: Test@2
-  inputs:
-    command: 'test'
-    projects: '**/*.csproj'
