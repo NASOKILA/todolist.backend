@@ -36,3 +36,5 @@ Logging with NLog
 Interfaces
 Abstract classes
 and more...
+
+Commit 1
